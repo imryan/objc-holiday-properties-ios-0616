@@ -10,40 +10,45 @@
 }
 
 - (NSArray *)holidaysInSeason:(NSString *)season {
-    
-    return nil;
+    return self.database[season];
 }
 
-- (NSArray *)suppliesInHoliday:(NSString *)holiday
-                      inSeason:(NSString *)season {
-    
-    return nil;
+- (NSArray *)suppliesInHoliday:(NSString *)holiday inSeason:(NSString *)season {
+    return self.database[season][holiday];
 }
 
-- (BOOL)holiday:(NSString* )holiday
-     isInSeason:(NSString *)season {
+- (BOOL)holiday:(NSString* )holiday isInSeason:(NSString *)season {
+    BOOL inSeason = NO;
     
-    return nil;
+    for (NSString *theHoliday in self.database[season]) {
+        if ([theHoliday isEqualToString:holiday]) {
+            inSeason = YES;
+            break;
+        }
+    }
+    
+    return inSeason;
 }
 
-- (BOOL)supply:(NSString *)supply
-   isInHoliday:(NSString *)holiday
-      inSeason:(NSString *)season {
+- (BOOL)supply:(NSString *)supply isInHoliday:(NSString *)holiday inSeason:(NSString *)season {
+    BOOL inSeason = NO;
     
-    return nil;
+    for (NSString *theSupply in self.database[season][holiday]) {
+        if ([theSupply isEqualToString:supply]) {
+            inSeason = YES;
+            break;
+        }
+    }
+    
+    return inSeason;
 }
 
-- (void)addHoliday:(NSString *)holiday
-          toSeason:(NSString *)season {
-    
-    // no return
+- (void)addHoliday:(NSString *)holiday toSeason:(NSString *)season {
+    [self.database[season] setObject:@[] forKey:holiday];
 }
 
-- (void)addSupply:(NSString *)supply
-        toHoliday:(NSString *)holiday
-         inSeason:(NSString *)season {
-    
-    // no return
+- (void)addSupply:(NSString *)supply toHoliday:(NSString *)holiday inSeason:(NSString *)season {
+    [self.database[season][holiday] addObject:supply];
 }
 
 @end

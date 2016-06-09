@@ -5,12 +5,7 @@
 @interface FISAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-/**
- 
- *  Add a new property here.
- 
- */
+@property (nonatomic, strong) NSDictionary *database;
 
 - (NSArray *)holidaysInSeason:(NSString *)season;
 
